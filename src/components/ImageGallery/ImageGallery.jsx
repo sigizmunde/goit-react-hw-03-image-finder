@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './ImageGallery.module.css';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import { nanoid } from 'nanoid';
 
 function ImageGallery({ items, onClick }) {
   return (
@@ -9,7 +10,7 @@ function ImageGallery({ items, onClick }) {
         const { id, previewURL } = item;
         return (
           <ImageGalleryItem
-            key={id}
+            key={id + nanoid()}
             id={id}
             previewURL={previewURL}
             onClick={() => onClick({ image: item })}

@@ -1,12 +1,12 @@
 import css from './ImageGalleryItem.module.css';
 
-function ImageGalleryItem({ id, previewURL, onClick }) {
+function ImageGalleryItem({ id, previewURL, tags, onClick }) {
   return (
     <li className={css.ImageGalleryItem} onClick={() => onClick(id)}>
       <img
         className={css['ImageGalleryItem-image']}
         src={previewURL}
-        alt="miniature"
+        alt={tags}
       />
     </li>
   );

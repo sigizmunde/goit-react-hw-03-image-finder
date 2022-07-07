@@ -4,6 +4,7 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
+import Button from './Button/Button';
 
 export class App extends React.Component {
   MY_API_KEY = '27547013-b29238c577303ab781139b8a0';
@@ -19,16 +20,23 @@ export class App extends React.Component {
   };
 
   componentDidUpdate(_, prevState) {
-    const { query } = this.state;
-    if (query !== prevState.query) {
+    const { query, page, items } = this.state;
+    if (query !== prevState.query || page !== prevState.page) {
+      if (page === 1) {
+        this.setState({ items: [] });
+      }
       this.setState({ status: 'loading' });
       this.fetchImages(query).finally(this.setState({ status: 'idle' }));
     }
-  }
 
-  handleSearch = query => {
-    this.setState({ query });
-  };
+    if (items !== prevState.items && page !== 1) {
+      window.scrollTo({
+        left: 0,
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }
 
   fetchImages = searchString => {
     const headers = {
@@ -56,8 +64,18 @@ export class App extends React.Component {
           tags,
         }))
       )
-      .then(items => this.setState({ items }))
+      .then(newItems => {
+        this.setState(({ items }) => ({ items: [...items, ...newItems] }));
+      })
       .catch(error => console.error(error));
+  };
+
+  handleSearch = query => {
+    this.setState({ query, page: 1 });
+  };
+
+  loadMore = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
   };
 
   previewClickHandle = ({ image }) => {
@@ -85,7 +103,10 @@ export class App extends React.Component {
         <Searchbar onSearch={this.handleSearch} />
         {status === 'loading' && <Loader />}
         {items.length > 0 && (
-          <ImageGallery items={items} onClick={this.previewClickHandle} />
+          <>
+            <ImageGallery items={items} onClick={this.previewClickHandle} />
+            <Button onClick={this.loadMore} />
+          </>
         )}
         {status === 'modal' && (
           <Modal closeFunction={this.modalCloseHandle}>

@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-homework-template/static/css/main.0328adc7.css",
-    "main.js": "/react-homework-template/static/js/main.2fcb31fe.js",
-    "static/media/rotate.svg": "/react-homework-template/static/media/rotate.d0d161d805d7081932bc2770791ede8b.svg",
-    "index.html": "/react-homework-template/index.html",
-    "static/media/search.svg": "/react-homework-template/static/media/search.3c33d2c3b0d1b33f7dc9.svg",
-    "main.0328adc7.css.map": "/react-homework-template/static/css/main.0328adc7.css.map",
-    "main.2fcb31fe.js.map": "/react-homework-template/static/js/main.2fcb31fe.js.map"
+    "main.css": "/goit-react-hw-03-image-finder/static/css/main.a5587b19.css",
+    "main.js": "/goit-react-hw-03-image-finder/static/js/main.37e9cb0f.js",
+    "static/media/rotate.svg": "/goit-react-hw-03-image-finder/static/media/rotate.d0d161d805d7081932bc2770791ede8b.svg",
+    "index.html": "/goit-react-hw-03-image-finder/index.html",
+    "static/media/search.svg": "/goit-react-hw-03-image-finder/static/media/search.3c33d2c3b0d1b33f7dc9.svg",
+    "main.a5587b19.css.map": "/goit-react-hw-03-image-finder/static/css/main.a5587b19.css.map",
+    "main.37e9cb0f.js.map": "/goit-react-hw-03-image-finder/static/js/main.37e9cb0f.js.map"
   },
   "entrypoints": [
-    "static/css/main.0328adc7.css",
-    "static/js/main.2fcb31fe.js"
+    "static/css/main.a5587b19.css",
+    "static/js/main.37e9cb0f.js"
   ]
 }

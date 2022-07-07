@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './ImageGallery.module.css';
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { nanoid } from 'nanoid';
 
 function ImageGallery({ items, onClick }) {

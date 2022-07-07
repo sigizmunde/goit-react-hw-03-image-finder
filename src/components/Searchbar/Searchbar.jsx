@@ -1,4 +1,5 @@
 import css from './Searchbar.module.css';
+import PropTypes from 'prop-types';
 
 function Searchbar({ onSearch }) {
   const submitQuery = e => {
@@ -24,5 +25,9 @@ function Searchbar({ onSearch }) {
     </header>
   );
 }
+
+Searchbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default Searchbar;

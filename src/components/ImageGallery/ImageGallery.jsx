@@ -2,6 +2,7 @@ import React from 'react';
 import css from './ImageGallery.module.css';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 function ImageGallery({ items, onClick }) {
   return (
@@ -20,5 +21,16 @@ function ImageGallery({ items, onClick }) {
     </ul>
   );
 }
+
+ImageGallery.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      previewURL: PropTypes.string.isRequired,
+      imageURL: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default ImageGallery;

@@ -1,5 +1,5 @@
 import css from './Loader.module.css';
-import { ReactComponent as LoaderPic } from './rotate.svg';
+import { ReactComponent as LoaderPic } from 'components/Loader/rotate.svg';
 
 function Loader() {
   return (

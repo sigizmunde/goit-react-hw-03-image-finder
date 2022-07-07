@@ -1,4 +1,5 @@
 import css from './ImageGalleryItem.module.css';
+import PropTypes from 'prop-types';
 
 function ImageGalleryItem({ id, previewURL, tags, onClick }) {
   return (
@@ -11,5 +12,12 @@ function ImageGalleryItem({ id, previewURL, tags, onClick }) {
     </li>
   );
 }
+
+ImageGalleryItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  previewURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default ImageGalleryItem;

@@ -3,8 +3,9 @@ import css from './Modal.module.css';
 import PropTypes from 'prop-types';
 
 class Modal extends React.Component {
-  propTypes = {
-    children: PropTypes.node.isRequired,
+  static propTypes = {
+    imageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
     closeFunction: PropTypes.func.isRequired,
   };
 
@@ -21,10 +22,12 @@ class Modal extends React.Component {
   };
 
   render() {
-    const { children, closeFunction } = this.props;
+    const { closeFunction, imageURL, tags } = this.props;
     return (
       <div className={css.Overlay} onClick={closeFunction}>
-        <div className={css.Modal}>{children}</div>
+        <div className={css.Modal}>
+          <img src={imageURL} alt={tags} />
+        </div>
       </div>
     );
   }

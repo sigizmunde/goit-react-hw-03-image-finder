@@ -14,7 +14,7 @@ function ImageGalleryItem({ id, previewURL, tags, onClick }) {
 }
 
 ImageGalleryItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   previewURL: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,

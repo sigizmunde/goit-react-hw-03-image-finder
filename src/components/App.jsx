@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './App.module.css';
+import fetchImages from './api-query';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
@@ -7,10 +8,6 @@ import Modal from './Modal/Modal';
 import Button from './Button/Button';
 
 export class App extends React.Component {
-  MY_API_KEY = '27547013-b29238c577303ab781139b8a0';
-  URL = 'https://pixabay.com/api/';
-  PER_PAGE = 12;
-
   state = {
     query: '',
     items: [],
@@ -22,11 +19,17 @@ export class App extends React.Component {
   componentDidUpdate(_, prevState) {
     const { query, page, items } = this.state;
     if (query !== prevState.query || page !== prevState.page) {
-      if (page === 1) {
-        this.setState({ items: [] });
-      }
       this.setState({ status: 'loading' });
-      this.fetchImages(query).finally(this.setState({ status: 'idle' }));
+
+      fetchImages(query, page)
+        .then(newItems => {
+          this.setState(({ items }) => ({
+            items: [...items, ...newItems],
+          }));
+        })
+        .finally(() => {
+          this.setState({ status: 'idle' });
+        });
     }
 
     if (items !== prevState.items && page !== 1) {
@@ -38,40 +41,10 @@ export class App extends React.Component {
     }
   }
 
-  fetchImages = searchString => {
-    const headers = {
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: 'true',
-    };
-
-    return fetch(
-      `${this.URL}?key=${this.MY_API_KEY}&q=${searchString}&per_page=${this.PER_PAGE}&page=${this.state.page}`,
-      headers
-    )
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        return Promise.reject(new Error('Server response not OK'));
-      })
-      .then(json =>
-        json.hits.map(({ id, webformatURL, largeImageURL, tags }) => ({
-          id,
-          previewURL: webformatURL,
-          imageURL: largeImageURL,
-          tags,
-        }))
-      )
-      .then(newItems => {
-        this.setState(({ items }) => ({ items: [...items, ...newItems] }));
-      })
-      .catch(error => console.error(error));
-  };
-
   handleSearch = query => {
-    this.setState({ query, page: 1 });
+    this.setState(({ page, query: oldQuery }) => {
+      if (oldQuery !== query) return { query, page: 1, items: [] };
+    });
   };
 
   loadMore = () => {
@@ -109,9 +82,11 @@ export class App extends React.Component {
           </>
         )}
         {status === 'modal' && (
-          <Modal closeFunction={this.modalCloseHandle}>
-            <img src={currentImage.imageURL} alt={currentImage.tags} />
-          </Modal>
+          <Modal
+            closeFunction={this.modalCloseHandle}
+            imageURL={currentImage.imageURL}
+            tags={currentImage.tags}
+          />
         )}
       </div>
     );

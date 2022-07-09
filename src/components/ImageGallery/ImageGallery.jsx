@@ -8,12 +8,13 @@ function ImageGallery({ items, onClick }) {
   return (
     <ul className={css.ImageGallery}>
       {items.map(item => {
-        const { id, previewURL } = item;
+        const { id, previewURL, tags } = item;
         return (
           <ImageGalleryItem
             key={id + nanoid()}
             id={id}
             previewURL={previewURL}
+            tags={tags || 'preview'}
             onClick={() => onClick({ image: item })}
           />
         );
@@ -25,9 +26,10 @@ function ImageGallery({ items, onClick }) {
 ImageGallery.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       previewURL: PropTypes.string.isRequired,
       imageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
     })
   ).isRequired,
   onClick: PropTypes.func.isRequired,

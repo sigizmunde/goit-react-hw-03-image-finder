@@ -42,7 +42,7 @@ export class App extends React.Component {
   }
 
   handleSearch = query => {
-    this.setState(({ page, query: oldQuery }) => {
+    this.setState(({ query: oldQuery }) => {
       if (oldQuery !== query) return { query, page: 1, items: [] };
     });
   };

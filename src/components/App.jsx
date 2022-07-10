@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './App.module.css';
-import fetchImages from './api-query';
+import fetchImages from '../services/api-query';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
@@ -42,9 +42,7 @@ export class App extends React.Component {
   }
 
   handleSearch = query => {
-    this.setState(({ query: oldQuery }) => {
-      if (oldQuery !== query) return { query, page: 1, items: [] };
-    });
+    this.setState({ query, page: 1, items: [] });
   };
 
   loadMore = () => {

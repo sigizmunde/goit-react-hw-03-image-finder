@@ -9,12 +9,21 @@ class Searchbar extends React.Component {
 
   state = {
     query: '',
+    disabled: false,
   };
+
+  componentDidUpdate(_, prevState) {
+    const { query } = this.state;
+    if (query !== prevState.query) {
+      this.setState({ disabled: false });
+    }
+  }
 
   submitQuery = e => {
     e.preventDefault();
     const { onSearch } = this.props;
     onSearch(this.state.query);
+    this.setState({ disabled: true });
   };
 
   onChange = e => {
@@ -25,7 +34,11 @@ class Searchbar extends React.Component {
     return (
       <header className={css.Searchbar}>
         <form className={css.SearchForm} onSubmit={this.submitQuery}>
-          <button type="submit" className={css['SearchForm-button']}>
+          <button
+            type="submit"
+            className={css['SearchForm-button']}
+            disabled={this.state.disabled}
+          >
             <span className={css['SearchForm-button-label']}>Search</span>
           </button>
           <input
